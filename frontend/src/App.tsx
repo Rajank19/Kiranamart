@@ -43,7 +43,7 @@ const [sessionActive, setSessionActive] = useState(false);
   // Flow states
   const [activeView, setActiveView] = useState<ActiveView>('home');
   const [searchQuery, setSearchQuery] = useState('');
-  
+  const [showSignup, setShowSignup] = useState(false);
   // Data lists (stateful so store creation inserts live SKUs instantly!)
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [stores, setStores] = useState<StoreApproval[]>(INITIAL_STORES);
@@ -210,15 +210,25 @@ const handleLogout = () => {
 
   // Render content according to active role session
   if (!sessionActive || userRole === null) {
+
+  if (showSignup) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-between">
-        <AuthLogin 
-          onLoginSuccess={handleLoginSuccess}
-          onGoToSignup={() => alert('Signup database preloads completed. Toggle between roles inside Login to check details!')}
-        />
-      </div>
+      <AuthSignup
+        onSignupSuccess={() => setShowSignup(false)}
+        onBackToLogin={() => setShowSignup(false)}
+      />
     );
   }
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-between">
+      <AuthLogin
+        onLoginSuccess={handleLoginSuccess}
+        onGoToSignup={() => setShowSignup(true)}
+      />
+    </div>
+  );
+}
 
   // Dashboard Role: Store Owner
   if (userRole === 'store') {
