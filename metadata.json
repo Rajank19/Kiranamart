@@ -1,0 +1,6 @@
+{
+  "name": "KiranaMart",
+  "description": "An instant grocery delivery platform featuring customer store browsing, interactive cart, checkout simulation, order history, shop owner dashboard, and admin approval management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
